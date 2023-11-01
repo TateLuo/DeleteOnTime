@@ -1,0 +1,24 @@
+<service>
+  
+  <!-- ID of the service. It should be unique across the Windows system-->
+  <id>DeleteOverdueFiles</id>
+  <!-- Display name of the service -->
+  <name>DeleteOverdueFiles Service</name>
+  <!-- Service description -->
+  <description>定期删除指定文件夹所有文件</description>
+  
+  <!-- Path to the executable, which should be started -->
+  <executable>%BASE%\DeleteOverdueFiles.exe</executable>
+  
+    <!--
+    OPTION: priority
+    Desired process priority.
+    Possible values: Normal, Idle, High, RealTime, BelowNormal, AboveNormal
+    Default value: Normal
+  -->
+  <priority>Normal</priority>
+  
+  <!--失败后自动重启-->
+   <onfailure action="restart" delay="10 sec"/>
+
+</service>

@@ -1,7 +1,7 @@
 # DeleteOnTime
 a GUI software to delete the specified files as you planned
 
-用法（英文）：
+用法（中文）：
 1. 把你的图标放在同一个文件夹下，并重命名为icon.ico，运行ico.py，会出现一个qq.py，保留即可。
 2. 通过Pyinstaller将py程序(ui.py,DeleteOverdue.py)打包为exe程序，不要更改DeleteOverdue.pyd的名称(包括打包后的exe)。
 3. 将 winSW-x64.exe 和 winSW-x64.xml 保存在您的文件夹中（如果您的电脑是 x86 或其他电脑，您应该访问项目 Winsw/Releases WinSW v2.12.0 下载您的版本并将其放在同一文件夹中，然后更改 名字和以前一样）

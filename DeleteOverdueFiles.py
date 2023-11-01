@@ -1,7 +1,7 @@
-import os
+import os, stat
 import time
 import configparser
-
+import shutil
 
 
 # 设置扫描间隔和未修改天数的常量
@@ -81,11 +81,24 @@ def delete_old_files(folder_path, days):
     # 扫描文件夹中的文件并删除超过n天未修改的文件
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
+        message = "当前扫描目录"+folder_path
+        print(message)
+        message ="扫描到文件"+filename
+        print(message)
         # 判断文件是否超过n天未修改
         if os.stat(file_path).st_mtime < time.time() -  days:
-            os.remove(file_path)
-            print(f'已删除文件 {filename}')
-            log(f'已删除文件 {filename}')
+            try:
+                os.chmod(file_path, stat.S_IWRITE)
+                #如果是C盘，无权限无法删除
+                print(f'给 文件{filename}赋予读写权限')
+                log(f'给 文件{filename}赋予读写权限')
+                os.remove(file_path)
+                #shutil.rmtree(file_path)
+                print(f'已删除文件 {filename}')
+                log(f'已删除文件 {filename}')
+            except PermissionError:
+                print(f'无法删除文件 {filename}，权限不足')
+                log(f'无法删除文件 {filename}，权限不足')
 
 def log(message):
     # 将日志信息写入日志文件
@@ -127,7 +140,7 @@ def main():
                 log(message)
             else:
                 n_days = sec_to_data(int(days))#将秒转化为天
-                message = '开始删除超过'+str(n_days) +'天未修改的文件...'
+                message = '\n开始删除超过'+str(n_days) +'天未修改的文件...'
                 print(message)
                 log(message)
             
